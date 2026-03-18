@@ -18,23 +18,30 @@ class _LoginScreenState extends State<LoginScreen> {
   @override
   void dispose() {
     // bug 1
+    
+    //Enter Pass.dispose() to remove password Controler Data (To Free Memory)
     email.dispose();
+    pass.dispose();
     super.dispose();
   }
 
   void _login() {
 
     // BUG 2 – 
-    ScaffoldMessenger.of(context)
-        .showSnackBar(const SnackBar(content: Text('Logged in (demo)')));
+   
+   //Put Scaffold Messenger after Condetion , Not before (because Show Login Messege after enter valid data )
 
     if (_formkey.currentState!.validate()) {
 
       //  BUG 3 
-      Navigator.push(
+
+      //add PushReplacement because you musn`t return login page after gone homescreen
+      Navigator.pushReplacement(
         context,
         MaterialPageRoute(builder: (context) => const HomeScreen()),
       );
+       ScaffoldMessenger.of(context)
+        .showSnackBar(const SnackBar(content: Text('Logged in (demo)')));
     }
   }
 
@@ -64,8 +71,13 @@ class _LoginScreenState extends State<LoginScreen> {
                   keyboardType: TextInputType.emailAddress,
                   validator: (value) {
                     // BUG 4 
+
+                    //Add More Validation(Condetions) In Email TO Enter Email valid email
                     if (value == null || value.isEmpty) {
                       return 'invalid email';
+                    }
+                    if(!value.contains('@gmail.com')){
+                      return 'Enter "@gmail.com"';
                     }
                     return null;
                   },
@@ -83,8 +95,14 @@ class _LoginScreenState extends State<LoginScreen> {
                   obscureText: obscure,
                   validator: (value) {
                     // BUG 5 
+
+                   //Add More Validation(Condetions) In password TO Enter password valid Password
+                   // and Change word Invalid email to invalid password
                     if (value == null || value.isEmpty) {
-                      return 'invalid email';
+                      return 'invalid Password';
+                    }
+                    if(value.length < 6){
+                      return 'Enter Length 6 or More ';
                     }
                     return null;
                   },
@@ -124,6 +142,9 @@ class _LoginScreenState extends State<LoginScreen> {
                     const Text("Don't have an account?  "),
                     GestureDetector(
                       onTap: () {
+
+                        //
+
                         Navigator.push(
                           context,
                           MaterialPageRoute(

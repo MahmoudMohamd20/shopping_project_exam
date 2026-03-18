@@ -1,7 +1,7 @@
 class Product {
   final String id;
   final String title;
-  final String price; //bug 14 
+  final double price; //bug 14 // make price (double ) because it should be double not string 
   final String imageUrl;
   final String description;
 

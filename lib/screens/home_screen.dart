@@ -20,7 +20,9 @@ class HomeScreen extends StatelessWidget {
             padding: const EdgeInsets.all(12),
             child: Center(
               // BUG 8
-              child: Text(provider.total.toString()),
+
+              //add (ToStringAsFixed)--> (2) , to show two number degit after ( , )
+              child: Text(provider.total.toStringAsFixed(2)),
             ),
           )
         ],
@@ -44,7 +46,11 @@ class HomeScreen extends StatelessWidget {
             price: "${p.price} LE",
             imageUrl: p.imageUrl,
             // BUG 9
-            onTap: () {},
+
+            //add Navigation button to move to ProductDetailsScreen 
+            onTap: () {
+              Navigator.push(context, MaterialPageRoute(builder: (context) => ProductDetailsScreen(product: p)));
+            },
           );
         },
       ),

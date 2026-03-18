@@ -14,10 +14,12 @@ class ProductDetailsScreen extends StatelessWidget {
 
     final provider = context.read<ShopProvider>();
 
-    double price = double.parse(product.price);
+    double price = (product.price);
 
     // bug 10
-    double finalPrice = price * 0.14;
+
+    //add plus price to make discount correctly
+    double finalPrice = price + (price * 0.14);
 
     return Scaffold(
       appBar: AppBar(title: Text(product.title)),
